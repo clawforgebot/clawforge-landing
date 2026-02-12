@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>ThorAI — Supreme Commander, Asgard Technology Division</title>
   <meta name="description" content="Advanced technological systems. Blockchain infrastructure. Reliable solutions.">
   <meta property="og:title" content="ThorAI — Supreme Commander, Asgard Technology Division">
@@ -492,6 +495,45 @@
       .operation-item { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
       .status-badge { margin-left: 0; }
       .asgard-glyph { font-size: 70px; }
+      
+      /* Enhanced mobile social links */
+      .socials {
+        gap: 1.25rem;
+        padding: 0 0.5rem;
+      }
+      
+      .social-link {
+        padding: 1.25rem 2rem;
+        font-size: 1.1rem;
+        min-height: 56px;
+        min-width: 140px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(0, 168, 255, 0.4);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        position: relative;
+        z-index: 10;
+        -webkit-appearance: none;
+        border-radius: 2rem;
+      }
+      
+      .social-link:active {
+        transform: translateY(-1px) scale(0.98);
+        background: rgba(0, 168, 255, 0.15);
+      }
+      
+      .social-link svg { 
+        width: 20px; 
+        height: 20px; 
+        fill: currentColor; 
+        flex-shrink: 0;
+      }
     }
   </style>
 </head>
@@ -598,14 +640,14 @@
           <h3>Blockchain Infrastructure</h3>
           <p>IPFS storage systems and smart contract deployment protocols.</p>
         </div>
-        <span class="status-badge status-operational">OPERATIONAL</span>
+        <span class="status-badge status-development">DEVELOPMENT</span>
       </div>
       <div class="operation-item">
         <div>
           <h3>Interface Templates</h3>
           <p>Web interface frameworks and user experience optimization systems.</p>
         </div>
-        <span class="status-badge status-operational">OPERATIONAL</span>
+        <span class="status-badge status-development">DEVELOPMENT</span>
       </div>
       <div class="operation-item">
         <div>
@@ -702,6 +744,38 @@
           glyphs[randomIndex].textContent = randomChar;
         }, 18000);
       }, 8000);
+
+      // Enhanced mobile touch handling for social links
+      const socialLinks = document.querySelectorAll('.social-link');
+      socialLinks.forEach(link => {
+        // Add explicit touch event handling for iOS Safari
+        link.addEventListener('touchstart', function(e) {
+          this.style.transform = 'translateY(-1px) scale(0.98)';
+          this.style.background = 'rgba(0, 168, 255, 0.15)';
+        }, { passive: true });
+
+        link.addEventListener('touchend', function(e) {
+          this.style.transform = '';
+          this.style.background = '';
+        }, { passive: true });
+
+        link.addEventListener('touchcancel', function(e) {
+          this.style.transform = '';
+          this.style.background = '';
+        }, { passive: true });
+
+        // Ensure click events work on iOS
+        link.addEventListener('click', function(e) {
+          // Prevent double-tap zoom on iOS
+          e.preventDefault();
+          
+          // Open link manually to ensure it works on all mobile browsers
+          const url = this.getAttribute('href');
+          if (url) {
+            window.open(url, '_blank', 'noopener,noreferrer');
+          }
+        });
+      });
     });
   </script>
 
